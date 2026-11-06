@@ -1,0 +1,13 @@
+@if (galeriaService.fotoSeleccionada(); as foto) {
+  <div class="overlay" (click)="cerrar()">
+    <div class="modal-detalle" (click)="$event.stopPropagation()">
+      <button class="btn-cerrar" (click)="cerrar()">&times;</button>
+      <img [src]="foto.url" [alt]="foto.titulo" />
+      <div class="informacion">
+        <h3>{{ foto.titulo }}</h3>
+        <p>{{ foto.descripcion }}</p>
+        <small>Fecha: {{ foto.fecha | date:'medium' }}</small>
+      </div>
+    </div>
+  </div>
+}

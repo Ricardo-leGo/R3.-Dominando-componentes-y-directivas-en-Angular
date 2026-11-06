@@ -1,0 +1,52 @@
+<button class="btn-subir" (click)="abrirModal()">+ Subir Nueva Foto</button>
+
+@if (mostrarModal) {
+  <div class="overlay" (click)="cerrarModal()">
+    <div class="modal-formulario" (click)="$event.stopPropagation()">
+      <h3>Subir Nueva Foto</h3>
+      <form (ngSubmit)="guardarFoto()">
+        <div class="campo">
+          <label for="titulo">Título:</label>
+          <input id="titulo" [(ngModel)]="titulo" name="titulo" required />
+        </div>
+
+        <div class="campo">
+          <label for="archivoFoto">Seleccionar Foto Local:</label>
+          <input 
+            type="file" 
+            id="archivoFoto" 
+            accept="image/*" 
+            (change)="onArchivoSeleccionado($event)" 
+            required 
+          />
+        </div>
+
+        @if (url) {
+          <div class="vista-previa">
+            <img [src]="url" alt="Vista previa" style="max-height: 120px; border-radius: 4px; margin-top: 0.5rem;" />
+          </div>
+        }
+
+        <div class="campo">
+          <label for="categoria">Categoría:</label>
+          <select id="categoria" [(ngModel)]="categoria" name="categoria">
+            <option value="paisaje">Paisaje</option>
+            <option value="arquitectura">Arquitectura</option>
+            <option value="retrato">Retrato</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label for="descripcion">Descripción:</label>
+          <textarea id="descripcion" [(ngModel)]="descripcion" name="descripcion" rows="3"></textarea>
+        </div>
+
+        <div class="acciones">
+          <button type="button" (click)="cerrarModal()">Cancelar</button>
+          <button type="submit" [disabled]="!titulo || !url">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+}

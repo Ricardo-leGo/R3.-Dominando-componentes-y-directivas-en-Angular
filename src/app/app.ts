@@ -1,12 +1,13 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { GaleriaFotosComponent } from './components/galeria-fotos/galeria-fotos';
+import { FotoDetalleComponent } from './components/foto-detalle/foto-detalle';
+import { CargaFotosComponent } from './components/carga-fotos/carga-fotos';
 
 @Component({
-  imports: [RouterOutlet],
   selector: 'app-root',
-  styleUrl: './app.css',
+  standalone: true,
+  imports: [GaleriaFotosComponent, FotoDetalleComponent, CargaFotosComponent],
   templateUrl: './app.html',
+  styleUrl: './app.css'
 })
-export class App {
-  protected readonly title = signal('galeria-de-fotos');
-}
+export class App {}

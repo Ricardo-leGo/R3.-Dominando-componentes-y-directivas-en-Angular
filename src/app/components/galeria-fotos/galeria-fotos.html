@@ -1,0 +1,47 @@
+
+<div class="bar-filtro" style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+  <label for="filtroCat" style="font-weight: 600;">Filtrar por categoría:</label>
+  <select id="filtroCat" [(ngModel)]="filtroCategoria" style="padding: 0.4rem 0.8rem; border-radius: 4px; border: 1px solid #ccc;">
+    <option value="todas">Todas las categorías</option>
+    <option value="paisaje">Paisaje</option>
+    <option value="arquitectura">Arquitectura</option>
+    <option value="retrato">Retrato</option>
+    <option value="otro">Otro</option>
+  </select>
+</div>
+
+<div [ngSwitch]="filtroCategoria" class="encabezado-filtro" style="margin-bottom: 1rem;">
+  <p *ngSwitchCase="'paisaje'" style="color: #137333; font-weight: 500;">
+    🌄 Mostrando únicamente fotografías de paisajes y entornos naturales.
+  </p>
+  <p *ngSwitchCase="'arquitectura'" style="color: #1a73e8; font-weight: 500;">
+    🏙️ Mostrando únicamente fotografías de arquitectura y espacios urbanos.
+  </p>
+  <p *ngSwitchCase="'retrato'" style="color: #c5221f; font-weight: 500;">
+    👤 Mostrando únicamente fotografías de retrato.
+  </p>
+  <p *ngSwitchCase="'otro'" style="color: #5f6368; font-weight: 500;">
+    📷 Mostrando fotos clasificadas como otras categorías.
+  </p>
+  <p *ngSwitchDefault style="color: #475569;">
+    🖼️ Mostrando la totalidad de las imágenes guardadas en la galería.
+  </p>
+</div>
+
+<div *ngIf="fotosFiltradas.length === 0" class="mensaje-vacio" style="text-align: center; padding: 2rem; background: #f8fafc; border-radius: 6px; color: #64748b;">
+  <p>No se encontraron fotografías dentro de la categoría seleccionada.</p>
+</div>
+
+<div *ngIf="fotosFiltradas.length > 0" class="grid-galeria">
+  @for (foto of fotosFiltradas; track foto.id) {
+    <div class="tarjeta-foto" (click)="abrirDetalle(foto)">
+      <img [src]="foto.url" [alt]="foto.titulo" loading="lazy" />
+      <div class="pie-tarjeta">
+        <h4>{{ foto.titulo }}</h4>
+        <span class="badge" style="font-size: 0.75rem; background: #e2e8f0; padding: 0.15rem 0.4rem; border-radius: 4px; text-transform: capitalize;">
+          {{ foto.categoria }}
+        </span>
+      </div>
+    </div>
+  }
+</div>
